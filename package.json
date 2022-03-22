@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/kyzinatra/PaperTeam/issues"
   },
-  "homepage": "https://github.com/kyzinatra/PaperTeam#readme",
+  "homepage": "https://github.com/kyzinatra/PaperTeam",
   "devDependencies": {
     "@types/node": "^17.0.21",
     "ts-node": "^10.7.0",
