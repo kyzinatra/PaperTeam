@@ -18,7 +18,7 @@ Task comment
 > Underlined pairs can be rearranged, and the letter in brackets can be replaced by the letter in front of it. There are 16 correct lines in total.
 
 
-![Image alt](https://github.com/kyzinatra/PaperTeam/raw/master/public/test.png)
+![Image alt](https://github.com/kyzinatra/PaperTeam/raw/master/assets/test.png)
 
 
 To download dependences:
