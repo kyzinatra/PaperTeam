@@ -7,10 +7,10 @@ class Fold:
         self.padding = {"top": 1, "right": 1, "bottom": 1, "left": 1}
 
     def __init__(self, js_obj):
-        self.h_size = js_obj['h_size']
-        self.v_size = js_obj['v_size']
         self.horiz = js_obj['horiz']
         self.vert = js_obj['vert']
+        self.h_size = len(self.horiz)
+        self.v_size = len(self.vert)
         self.padding = js_obj['padding']
 
     def visualizate(self):
