@@ -1,4 +1,4 @@
-from modules.Folds import Fold, TargetFold
+from modules.Patterns import Pattern, TargetPattern
 
     
 from copy import deepcopy
@@ -8,11 +8,13 @@ def getInvertByAxis(tf,ax):
     return resF      
 
 
-f = Fold()
+f = Pattern()
 
 f.test_init()
 h = 3
 v = 6
+f.prnt()
+f.visualizate()
 
 
 '''
