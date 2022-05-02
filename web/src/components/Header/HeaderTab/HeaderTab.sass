@@ -1,0 +1,24 @@
+@import "../../../sass/utils/vars"
+$tabHeight: 45px
+
+.header__tab
+  min-width: 300px
+  margin-left: 10px
+  height: $tabHeight
+  word-break: break-word
+  transition: height 0.1s ease-in-out
+  display: flex
+  justify-content: center
+  align-items: flex-end
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25)
+  border-radius: 0px 0px 10px 10px
+  background-color: $default-color 
+  cursor: pointer
+  &:hover, &:focus
+    height: 65px
+  &_active
+    height: 60px
+  &-content
+    height: $tabHeight
+    display: flex
+    align-items: center

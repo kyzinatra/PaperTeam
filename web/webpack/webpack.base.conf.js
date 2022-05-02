@@ -14,9 +14,7 @@ const PATHS = {
 };
 
 const PAGES_DIR = `${PATHS.src}/pages/`;
-const PAGES = fs
-  .readdirSync(PAGES_DIR)
-  .filter((fileName) => fileName.endsWith(".html"));
+const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith(".html"));
 
 module.exports = {
   output: {
@@ -38,9 +36,7 @@ module.exports = {
         vendor: {
           test: /[\\/]node_modules[\\/]/i,
           name(module) {
-            const name = module.context.match(
-              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-            )[1];
+            const name = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
             return `npm.${name.replace("@", "")}`;
           },
         },
@@ -99,7 +95,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     ...PAGES.map(
-      (page) =>
+      page =>
         new HtmlWebpackPlugin({
           template: `${PAGES_DIR}/${page}`,
           filename: `./${page}`,
