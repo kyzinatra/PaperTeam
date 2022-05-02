@@ -5,17 +5,7 @@ import { add } from "../../service/slices/toastSlice";
 
 const Main = () => {
   const dispatch = useDispatch();
-  return (
-    <div>
-      <button
-        onClick={() =>
-          dispatch(add({ id: uid(), type: "error", text: uid(32) }))
-        }
-      >
-        add toast
-      </button>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Main;
