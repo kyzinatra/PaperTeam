@@ -1,6 +1,5 @@
 from modules.Links import Links, Segment
 
-
 class Pattern:
     def __init__(self, js_obj=None):
         if (js_obj):
@@ -143,12 +142,36 @@ class TargetPattern(Pattern):
             h_size-1) + (self.padding['top'])*(v_size-1) + (self.padding['bottom'])*(v_size-1) + (
             self.padding['right'] + self.padding['left'])*(self.padding['top']+self.padding['bottom'])
 
+    def __getLinkedAxis(self, ax):
+        res = []
+        if ax in self.vert:
+            ax = self.vert[ax]
+        elif ax in self.horiz:
+            ax = self.horiz[ax]
+        for seg in ax:
+            res = list(set(res) | set(self.links.getLinkedAxis(seg)))
+        return res
+
     def foldByAx(self, ax):
         self.__updatePaddings(ax)
-        if ax in self.valid_axis_vert:
-            self.foldByVertAx(ax)
-        elif ax in self.valid_axis_horiz:
-            self.foldByHorizAx(ax)
+        if ax in self.vert:
+            if ax in self.valid_axis_vert:
+                self.foldByVertAx(ax)
+            elif not self.vert[ax][0].isFold:
+                lAxis = self.__getLinkedAxis(ax)
+                for lax in lAxis:   
+                    if lax in self.valid_axis_vert:
+                        self.foldByVertAx(lax)
+                        break
+        elif ax in self.horiz:
+            if ax in self.valid_axis_horiz:
+                self.foldByHorizAx(ax)
+            elif not self.horiz[ax][0].isFold:
+                lAxis = self.__getLinkedAxis(ax)
+                for lax in lAxis:   
+                    if lax in self.valid_axis_horiz:
+                        self.foldByHorizAx(lax)
+                        break
         self.__updateSquare()
 
     def foldByVertAx(self, ax):
@@ -242,6 +265,26 @@ class TargetPattern(Pattern):
                 line = '┆'
             print('   ' + line, end='')
         print('\n')
+
+    def getInvertedAx(self, ax):
+        result = []
+        for s in ax:
+            result.append(Segment(not s.state, s.axis, s.pos))
+        return result
+
+    def findSimilarAx(self, pt):
+        result = []
+        for v in self.vert:
+            if self.vert[v][0].isFold:
+                continue
+            if self.vert[v] == pt.vert[v] or pt.vert[v] == self.getInvertedAx(self.vert[v]):
+                result.append(v)
+        for h in self.horiz:
+            if self.horiz[h][0].isFold:
+                continue
+            if self.horiz[h] == pt.horiz[h] or pt.horiz[h] == self.getInvertedAx(self.horiz[h]):
+                result.append(h)
+        return result
 
     def prnt(self):
         super().prnt()

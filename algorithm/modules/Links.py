@@ -3,7 +3,6 @@ class Segment:
         self.state = bool(state)
         self.axis = axis
         self.pos = pos
-        self.links = []
         self.isFold = False
 
     def markAsFold(self):
@@ -17,6 +16,13 @@ class Segment:
 
     def __repr__(self):
         return str(int(self.state)) + ' ' + self.axis+str(self.pos)
+
+    def __eq__(self, other):
+        res = self.state == other.state
+        res = res and (self.axis == other.axis)
+        res = res and (self.pos == other.pos)
+        res = res and (self.isFold == other.isFold)
+        return res
 
 
 class Links:
@@ -64,6 +70,15 @@ class Links:
                 for l in l_list:
                     l.markAsFold()
 
+    def getLinkedAxis(self, seg):
+        res = []
+        for l in self.__links:
+            if seg in l:
+                for ss in l:
+                    if ss.axis not in res:
+                        res.append(ss.axis)
+                break
+        return res
 
     def prnt(self):
         for i in self.__links:
