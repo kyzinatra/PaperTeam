@@ -14,7 +14,7 @@ const Console: FC = () => {
   }, [log]);
 
   useEffect(() => {
-    //ConsoleController.log(dispatch, [["green", "Success!"]]);
+    ConsoleController.log(dispatch, [["green", "Success!"]], true);
     ConsoleController.log(
       dispatch,
       [
