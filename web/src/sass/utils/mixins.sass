@@ -4,7 +4,7 @@
         $pixels: $pixels * 1px
     @if unitless($context)
         $context: $context * 1px
-    @return ($pixels / $context * 1rem)
+    @return calc($pixels / $context * 1rem)
 
 =size($width, $height: $width)
     width: $width

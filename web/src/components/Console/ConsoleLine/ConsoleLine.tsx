@@ -3,6 +3,8 @@ import style from "./ConsoleLine.sass";
 
 interface IConsoleLine {
   prefix?: boolean | string;
+
+  children?: JSX.Element | string | JSX.Element[];
 }
 
 const ConsoleLine: FC<IConsoleLine> = ({ prefix, children }) => {

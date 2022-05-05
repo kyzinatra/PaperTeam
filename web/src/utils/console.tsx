@@ -1,7 +1,6 @@
 import { add, clear } from "../service/slices/consoleSlice";
 import { useAppDispatch } from "../service/types/redux/store";
 import { uid } from "uid";
-import css from "../sass/global.sass";
 
 type Dispatch = ReturnType<typeof useAppDispatch>;
 export default class ConsoleController {
@@ -9,24 +8,22 @@ export default class ConsoleController {
     dispatch(
       add({
         id: uid(),
-        data: (
-          <>
-            <span className={css.green}>kyzintra@Ubuntu20.04.4 </span>
-            <span className={css.purple}>MINGW64 </span>~
-          </>
-        ),
-        CreateTime: new Date(),
+        data: [
+          ["green", "kyzintra@Ubuntu20.04.4 "],
+          ["purple", "kyzintra@Ubuntu20.04.4 "],
+          ["", "~"],
+        ],
+        CreateTime: Date.now(),
       })
     );
   }
-
-  static log(dispatch: Dispatch, text: string | JSX.Element, prefix?: boolean | string) {
+  static log(dispatch: Dispatch, text: [string, string][], prefix?: boolean | string) {
     dispatch(
       add({
         id: uid(),
         data: text,
         prefix,
-        CreateTime: new Date(),
+        CreateTime: Date.now(),
       })
     );
   }

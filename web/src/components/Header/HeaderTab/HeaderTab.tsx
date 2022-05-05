@@ -5,6 +5,7 @@ import style from "./HeaderTab.sass";
 interface IHeaderTab {
   active?: boolean;
   to: string;
+  children?: JSX.Element | string;
 }
 const HeaderTab: FC<IHeaderTab> = ({ children, active, to }) => {
   const navigate = useNavigate();

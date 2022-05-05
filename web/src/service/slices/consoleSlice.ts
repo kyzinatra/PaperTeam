@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IAddLog {
-  data: JSX.Element | string;
+  data: [string, string][];
   prefix?: string | boolean;
   id: string;
   CreateTime?: number | Date;
 }
-
 const initialState: IAddLog[] = [];
 
 export const consoleSlice = createSlice({

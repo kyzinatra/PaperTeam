@@ -4,6 +4,7 @@ import style from "./LinkBtn.sass";
 
 interface ILinkBtn {
   to: string;
+  children?: JSX.Element | string;
 }
 
 const LinkBtn: FC<ILinkBtn> = ({ children, to }) => {
