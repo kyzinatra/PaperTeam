@@ -6,7 +6,18 @@ export interface IAddLog {
   id: string;
   CreateTime?: number | Date;
 }
-const initialState: IAddLog[] = [];
+const initialState: IAddLog[] = [
+  {
+    id: "000000",
+    data: [
+      ["green", "kyzintra@Ubuntu20.04.4 "],
+      ["purple", "MINGW64 "],
+      ["", "~"],
+      ["blue", " (master)"],
+    ],
+    CreateTime: Date.now(),
+  },
+];
 
 export const consoleSlice = createSlice({
   name: "console",
@@ -16,7 +27,7 @@ export const consoleSlice = createSlice({
       return [...state, action.payload];
     },
     clear: state => {
-      return [];
+      return initialState;
     },
   },
 });

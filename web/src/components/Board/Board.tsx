@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "../../service/redux/store";
 import style from "./Board.sass";
 import Horiz from "./UI/Horiz/Horiz";
 import Vert from "./UI/Vert/Vert";
 
 const Board = () => {
-  const horiz = { A: "1010101", B: "0011100", C: "0101010" };
-  const vert = { D: "0011", E: "1111", F: "1100", G: "1100", H: "1111", I: "0011" };
+  const { vert, horiz } = useSelector(store => store.construcor);
 
+  const bottomPadVertLine = Object.values(vert).reduce((l, item) => l + item[item.length - 1], "");
   return (
     <div className={style.board}>
       {/* Names */}
@@ -20,29 +21,18 @@ const Board = () => {
         })}
       </div>
       {Object.entries(horiz).map((a, i) => {
+        const vertLine = Object.values(vert).reduce((last, vertLine) => last + vertLine[i], "");
+        const horizLine = Object.values(horiz)[i];
+        const horizTitle = Object.keys(horiz)[i];
         return (
-          <>
-            <div className={style.board__layer}>
-              {Object.entries(vert).map(b => {
-                return <Vert isDashed={!+b[1].split("")[i]} />;
-              })}
-            </div>
-            <div className={style.board__relative}>
-              <h3 className={style["board__horiz-title"]}>{a[0]}</h3>
-              <div className={style["board__layer-horiz"]}>
-                {a[1].split("").map(lineSegment => {
-                  console.log(a[1], lineSegment);
-                  return <Horiz isDashed={!+lineSegment} />;
-                })}
-              </div>
-            </div>
-          </>
+          <React.Fragment key={i}>
+            <Vert dashPattern={vertLine} />
+            <Horiz title={horizTitle} dashPattern={horizLine} />
+          </React.Fragment>
         );
       })}
       <div className={style.board__layer}>
-        {Object.entries(vert).map((b, i) => {
-          return <Vert isDashed={!+b[1].split("")[b[1].length - 1]} />;
-        })}
+        <Vert dashPattern={bottomPadVertLine} />
       </div>
     </div>
   );

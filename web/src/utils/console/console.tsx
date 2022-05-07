@@ -1,6 +1,8 @@
-import { add, clear } from "../service/slices/consoleSlice";
-import { useAppDispatch } from "../service/types/redux/store";
+import { add, clear } from "../../service/slices/consoleSlice";
+import { add as historyAdd } from "../../service/slices/historySlice";
+import { useAppDispatch } from "../../service/redux/store";
 import { uid } from "uid";
+import { construcorChange } from "./commands";
 
 type Dispatch = ReturnType<typeof useAppDispatch>;
 export default class ConsoleController {
@@ -26,6 +28,19 @@ export default class ConsoleController {
         CreateTime: Date.now(),
       })
     );
+  }
+  static run(dispatch: Dispatch, command: string) {
+    dispatch(historyAdd(command));
+    if (/^set/i.test(command)) dispatch(add(construcorChange(command, dispatch)));
+    else if (command == "clear") dispatch(clear());
+    else
+      dispatch(
+        add({
+          id: uid(),
+          data: [["", `bash: ${command.split(" ")[0]}: command not found`]],
+          CreateTime: Date.now(),
+        })
+      );
   }
   static clear(dispatch: Dispatch) {
     dispatch(clear());

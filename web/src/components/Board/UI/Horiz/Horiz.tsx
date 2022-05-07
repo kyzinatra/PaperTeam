@@ -1,14 +1,23 @@
 import React, { FC } from "react";
 import style from "./Horiz.sass";
+import HorizItem from "./HorizItem/HorizItem";
 interface IHoriz {
-  isDashed?: boolean;
+  dashPattern: string;
+  title: string;
 }
 
-const Horiz: FC<IHoriz> = ({ isDashed }) => {
-  const dashClass = " " + (isDashed ? style["board_dash"] : "");
+const Horiz: FC<IHoriz> = ({ dashPattern, title }) => {
   return (
-    <div className={style["board__horiz-wrapper"]}>
-      <span className={style.board__horiz + dashClass} />
+    <div className={style.horiz__relative}>
+      <h3 className={style["horiz__title"]}>{title}</h3>
+      <div
+        className={style["horiz__layer"]}
+        style={{ gridTemplateColumns: `0.5fr repeat(${dashPattern.length - 2}, 1fr) 0.5fr` }}
+      >
+        {dashPattern.split("").map((a, i) => {
+          return <HorizItem key={i} isDashed={!+a} />;
+        })}
+      </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import Main from "../Main/Main";
 import Constructor from "../Constructor/Constructor";
 
 import { Provider } from "react-redux";
-import { store } from "../../service/types/redux/store";
+import { store } from "../../service/redux/store";
 import Toast from "../Toast/Toast";
 
 const App: FC = () => {

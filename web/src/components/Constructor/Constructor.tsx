@@ -1,7 +1,7 @@
 import React from "react";
 import { clear } from "../../service/slices/consoleSlice";
-import { useAppDispatch } from "../../service/types/redux/store";
-import ConsoleController from "../../utils/console";
+import { useAppDispatch } from "../../service/redux/store";
+import ConsoleController from "../../utils/console/console";
 import Board from "../Board/Board";
 import Console from "../Console/Console";
 import Button from "../Links/Button/Button";

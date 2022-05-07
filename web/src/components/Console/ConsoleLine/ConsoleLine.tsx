@@ -3,11 +3,11 @@ import style from "./ConsoleLine.sass";
 
 interface IConsoleLine {
   prefix?: boolean | string;
-
+  className?: string;
   children?: JSX.Element | string | JSX.Element[];
 }
 
-const ConsoleLine: FC<IConsoleLine> = ({ prefix, children }) => {
+const ConsoleLine: FC<IConsoleLine> = ({ prefix, children, className }) => {
   let toAdd: string | null | JSX.Element = null;
   if (typeof prefix == "boolean" && prefix)
     toAdd = <span className={style.line__prefix}>{">"}</span>;
@@ -15,7 +15,7 @@ const ConsoleLine: FC<IConsoleLine> = ({ prefix, children }) => {
 
   return (
     <div className={style.line}>
-      <span>
+      <span className={className}>
         <span>{toAdd}</span>
         {children}
       </span>
