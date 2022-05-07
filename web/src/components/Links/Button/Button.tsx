@@ -2,7 +2,7 @@ import React, { FC, MouseEvent } from "react";
 import style from "./Button.sass";
 
 interface IButton {
-  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 
   children?: JSX.Element | string;
 }

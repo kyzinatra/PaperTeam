@@ -12,8 +12,8 @@ let initialState: IInitialState = {
 
 if (process.env.NODE_ENV == "development") {
   initialState = {
-    horiz: { A: "1010101", B: "0011100", C: "0101010" },
-    vert: { D: "0011", E: "1111", F: "1100", G: "1100", H: "1111", I: "0011" },
+    horiz: { A: "10101011", B: "00111100", C: "01011010" },
+    vert: { D: "0011", E: "1111", F: "1100", G: "1100", H: "1111", I: "0011", V: "0011" },
   };
 }
 

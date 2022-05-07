@@ -26,13 +26,13 @@ const Board = () => {
         const horizTitle = Object.keys(horiz)[i];
         return (
           <React.Fragment key={i}>
-            <Vert dashPattern={vertLine} />
+            <Vert dashPattern={vertLine} lineIndex={i} />
             <Horiz title={horizTitle} dashPattern={horizLine} />
           </React.Fragment>
         );
       })}
       <div className={style.board__layer}>
-        <Vert dashPattern={bottomPadVertLine} />
+        <Vert dashPattern={bottomPadVertLine} lineIndex={Object.keys(horiz).length} />
       </div>
     </div>
   );

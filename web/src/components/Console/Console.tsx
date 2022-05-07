@@ -40,6 +40,7 @@ const Console: FC = () => {
       if (input == "") return;
       ConsoleController.run(dispatch, input);
       setInput("");
+      setHistory(0);
       return;
     }
     if (isFocus && e.key == "ArrowUp") {

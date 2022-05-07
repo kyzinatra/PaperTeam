@@ -15,7 +15,7 @@ const Horiz: FC<IHoriz> = ({ dashPattern, title }) => {
         style={{ gridTemplateColumns: `0.5fr repeat(${dashPattern.length - 2}, 1fr) 0.5fr` }}
       >
         {dashPattern.split("").map((a, i) => {
-          return <HorizItem key={i} isDashed={!+a} />;
+          return <HorizItem key={i} index={i} axis={title} isDashed={!+a} />;
         })}
       </div>
     </div>

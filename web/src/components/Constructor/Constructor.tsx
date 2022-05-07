@@ -13,6 +13,13 @@ const Constructor = () => {
   return (
     <div className={style["constructor-page"]}>
       <Board />
+      <div className={style.constructor__input}>
+        <input type="text" />
+      </div>
+      <nav className={style.constructor__nav}>
+        <Button>Проверить решение</Button>
+        <Button>Расчитать оптимальное решение</Button>
+      </nav>
       <Console />
       <Button onClick={() => dispatch(clear())}>Clear</Button>
     </div>
