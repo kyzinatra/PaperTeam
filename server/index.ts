@@ -9,8 +9,8 @@ const app = express();
 const cors = require("cors");
 const port = 3000;
 // ! CROS
-var whitelist = ["http://localhost:3000", "http://localhost:9000"];
-var corsOptions = {
+const whitelist = ["http://localhost:3000", "http://localhost:9000"];
+const corsOptions = {
   origin: function (origin, callback) {
     console.log("ORIGIN: " + origin);
     // if (whitelist.indexOf(origin) !== -1) {
@@ -55,7 +55,6 @@ app.get(API_URL + "/getSolution", (req, res) => {
   const Qpath = (req.query?.path || "").toString();
   const Qflag = req.query?.friendly == "true";
   res.contentType("application/json");
-
   new Promise((resolve, reject) => {
     const process = spawn("py", ["algorithm/main.py", Qpath, Qflag ? "u" : ""]);
     process.stdout.on("data", resolve);
