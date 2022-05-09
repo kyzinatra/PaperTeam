@@ -7,10 +7,10 @@ import Vert from "./UI/Vert/Vert";
 const Board = () => {
   const { vert, horiz } = useSelector(store => store.construcor);
 
-  const bottomPadVertLine = Object.values(vert).reduce((l, item) => l + item[item.length - 1], "");
+  const bottomPadVertLine =
+    Object.values(vert).reduce((l, item) => l + item[item.length - 1], "") || "";
   return (
     <div className={style.board}>
-      {/* Names */}
       <div className={style.board__layer}>
         {Object.entries(vert).map((a, i) => {
           return (

@@ -5,23 +5,21 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Constructor from "../Constructor/Constructor";
 
-import { Provider } from "react-redux";
-import { store } from "../../service/redux/store";
-import Toast from "../Toast/Toast";
+import { useSelector } from "../../service/redux/store";
+import Load from "../Load/Load";
 
 const App: FC = () => {
+  const isLoading = useSelector(a => a.construcor.isLoading);
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Header />
+    <BrowserRouter>
+      <Header />
 
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/constructor" element={<Constructor />} />
-        </Routes>
-        <Toast />
-      </BrowserRouter>
-    </Provider>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/constructor" element={<Constructor />} />
+      </Routes>
+      <Load isLoading={isLoading} />
+    </BrowserRouter>
   );
 };
 

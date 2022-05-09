@@ -20,14 +20,25 @@ const Vert: FC<IVert> = ({ dashPattern, height = -1, lineIndex }) => {
     if (ref.current) {
       setFrWidth(ref.current.clientWidth / (dashPattern.length * 2));
     }
-  }, [ref]);
+  }, [ref, vert, horiz]);
+  useEffect(() => {
+    function resize(e: UIEvent) {
+      console.log("RESIZE", (ref.current?.clientWidth || 0) / (dashPattern.length * 2));
+      setFrWidth((ref.current?.clientWidth || 0) / (dashPattern.length * 2));
+    }
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
 
   function onClickHandler(e: MouseEvent) {
-    const clickCoordX = e.clientX - (ref.current?.offsetLeft || 0);
-    const clickCordY = e.clientY - (ref.current?.offsetTop || 0);
+    if (!(e.target instanceof Element)) return;
+    const clickCoordX = e.pageX - (ref.current?.offsetLeft || 0);
+    const clickCordY = e.pageY - (ref.current?.offsetTop || 0);
     const fractionX = clickCoordX / fRwidth;
     let percentToClosestX = 1 - Math.abs(+!(~~fractionX % 2) - (fractionX % 1));
     let percentToClosestY = Math.abs(clickCordY / styleHeight - 0.5) * 2;
+
+    console.log(percentToClosestX, percentToClosestY);
 
     if (percentToClosestX > percentToClosestY) {
       const axisNameV = Object.keys(vert)[~~(fractionX / 2)];

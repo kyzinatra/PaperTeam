@@ -1,10 +1,10 @@
 import { add, clear } from "../../service/slices/consoleSlice";
 import { add as historyAdd } from "../../service/slices/historySlice";
-import { useAppDispatch } from "../../service/redux/store";
+import { AppDispatch, useAppDispatch } from "../../service/redux/store";
 import { uid } from "uid";
 import { construcorChange } from "./commands";
 
-type Dispatch = ReturnType<typeof useAppDispatch>;
+type Dispatch = AppDispatch;
 export default class ConsoleController {
   static runConsole(dispatch: Dispatch) {
     dispatch(

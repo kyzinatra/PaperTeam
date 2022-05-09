@@ -1,13 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector as selectorHook } from "react-redux";
-import toastReducer from "../slices/toastSlice";
 import consoleReducer from "../slices/consoleSlice";
 import construcorReducer from "../slices/construcorSlice";
 import historyReducer from "../slices/historySlice";
 
 export const store = configureStore({
   reducer: {
-    toasts: toastReducer,
     console: consoleReducer,
     construcor: construcorReducer,
     history: historyReducer,
