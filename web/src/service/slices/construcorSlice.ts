@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import ConsoleController from "../../utils/console/console";
 import { API_URL, DEFAULT_FILE } from "../API";
 import { AppDispatch } from "../redux/store";
@@ -51,6 +51,33 @@ const loadFile = createAsyncThunk(
   }
 );
 
+const checkSuccess = [
+  ["", "Your answer is absolutely "],
+  ["green", "correct!"],
+] as [string, string][];
+
+const chackFail = [["", "Your answer isn't correct, try again"]] as [string, string][];
+
+const checkSolution = createAsyncThunk(
+  "constructor/checkSolution",
+  async (check: string, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(startLoad());
+      const resultStr = await (
+        await axios.get(API_URL + "/getSolution/?path=" + DEFAULT_FILE)
+      ).data;
+      console.log(resultStr);
+      const result: string[] = JSON.parse(resultStr.replace(/'/g, '"'));
+      if (result.includes(check))
+        ConsoleController.log(thunkAPI.dispatch as AppDispatch, checkSuccess, "🎉");
+      else ConsoleController.log(thunkAPI.dispatch as AppDispatch, chackFail, "😥");
+      thunkAPI.dispatch(endLoad());
+    } catch (e) {
+      thunkAPI.dispatch(errorLoad());
+    }
+  }
+);
+
 export const constructorSlice = createSlice({
   name: "constructor",
   initialState,
@@ -82,12 +109,16 @@ export const constructorSlice = createSlice({
     }),
   },
   extraReducers: builder => {
-    builder.addCase(loadFile.fulfilled, (state, action) => {
-      return { ...state, ...action.payload };
-    });
+    builder
+      .addCase(loadFile.fulfilled, (state, action) => {
+        return { ...state, ...action.payload };
+      })
+      .addCase(checkSolution.fulfilled, (state, action) => {
+        return { ...state };
+      });
   },
 });
 
 const { set, clear, setAxis, startLoad, endLoad, errorLoad } = constructorSlice.actions;
-export { set, clear, setAxis, loadFile, startLoad, endLoad, errorLoad };
+export { set, clear, setAxis, loadFile, startLoad, endLoad, errorLoad, checkSolution };
 export default constructorSlice.reducer;
