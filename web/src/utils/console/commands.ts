@@ -1,6 +1,6 @@
 import { uid } from "uid";
 import { useAppDispatch } from "../../service/redux/store";
-import { setAxis } from "../../service/slices/construcorSlice";
+import { setAxis, setSize } from "../../service/slices/construcorSlice";
 
 type log = {
   id: string;
@@ -12,7 +12,7 @@ export function construcorChange(
   command: string,
   dispatch: ReturnType<typeof useAppDispatch>
 ): log {
-  if (/^set ([A-Z])\s*:\s*([10]+)$/i.test(command)) {
+  if (/^set\s+([A-Z])\s*:\s*([10]+)$/i.test(command)) {
     const match = command.match(/^set ([A-Z])\s*:\s*([10]+)$/i) as string[];
     dispatch(
       setAxis({
@@ -25,12 +25,20 @@ export function construcorChange(
       data: [
         ["", `Axis ${match[1]} is `],
         ["green", "successfuly "],
-        ["", "changed"],
+        ["", `changed (${match[2]})`],
       ],
       CreateTime: Date.now(),
     };
   }
-
+  if (/^set\s+(width|height)\s*(\d+)\s*$/i.test(command)) {
+    const match = command.match(/^set\s+(width|height)\s*(\d+)\s*$/i) as string[];
+    dispatch(setSize({ type: match[1] as "width" | "height", size: +match[2] }));
+    return {
+      id: uid(),
+      data: [["blue", "Constructor request is sent"]],
+      CreateTime: Date.now(),
+    };
+  }
   return {
     id: uid(),
     data: [

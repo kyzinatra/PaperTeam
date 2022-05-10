@@ -1,12 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "../../service/redux/store";
+import { uid } from "uid";
+import { useAppDispatch, useSelector } from "../../service/redux/store";
+import { add } from "../../service/slices/consoleSlice";
+import { clearOverflow } from "../../service/slices/construcorSlice";
 import style from "./Board.sass";
 import Horiz from "./UI/Horiz/Horiz";
 import Vert from "./UI/Vert/Vert";
 
 const Board = () => {
   const { vert, horiz } = useSelector(store => store.construcor);
-
+  const isOverflow = useSelector(a => a.construcor.isOverflow);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (isOverflow) {
+      dispatch(
+        add({
+          data: [
+            ["red", "Error: "],
+            ["", "max size has been exceeded or query doesn't make sense "],
+          ],
+          id: uid(),
+        })
+      );
+      dispatch(clearOverflow());
+    }
+  }, [isOverflow]);
   const bottomPadVertLine =
     Object.values(vert).reduce((l, item) => l + item[item.length - 1], "") || "";
   return (
