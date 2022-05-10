@@ -16,24 +16,24 @@ class DesTree(Tree):
         self.copy_path = []
         self.__allN = []
 
-    def __super_alg1(self, parent="root"):
-        if parent == "root" and not self.contains("root"):
+    def __super_alg1(self, parent='root'):
+        if parent == 'root' and not self.contains('root'):
             self.create_node(identifier=parent,  data={
-                             "square": self.tp.square, 
-                             "ptrn": copy.deepcopy(self.tp)})
+                             'square': self.tp.square, 
+                             'ptrn': copy.deepcopy(self.tp)})
         eq_axes = self.tp.findSimilarAx(self.ptrn)
         saveTp = copy.deepcopy(self.tp)
         for ax in eq_axes:
             self.tp.foldByAx(ax)
             self.create_node(identifier=parent+ax,
-                             parent=parent, data={"square": self.tp.square, 
-                                                  "ptrn": copy.deepcopy(self.tp)})
+                             parent=parent, data={'square': self.tp.square, 
+                                                  'ptrn': copy.deepcopy(self.tp)})
             self.__allN.append(Node(identifier=parent+ax,
-                                data={"square": self.tp.square, 
-                                                  "ptrn": copy.deepcopy(self.tp)}))
+                                data={'square': self.tp.square, 
+                                                  'ptrn': copy.deepcopy(self.tp)}))
             already_has=False
             for n in self.__allN:
-                if self.tp == n.data["ptrn"] and parent+ax != n.identifier:
+                if self.tp == n.data['ptrn'] and parent+ax != n.identifier:
                     already_has = True
                     self.copy_path.append([parent+ax,n.identifier])
             if not already_has:
@@ -55,24 +55,20 @@ class DesTree(Tree):
         pass
 
 
-    def __super_alg2(self, parent="root"):
-        if parent == "root" and not self.contains("root"):
+    def __super_alg2(self, parent='root'):
+        if parent == 'root' and not self.contains('root'):
             self.create_node(identifier=parent,  data={
-                             "square": self.tp.square, 
-                             "ptrn": copy.deepcopy(self.tp)})
+                             'square': self.tp.square, 
+                             'ptrn': copy.deepcopy(self.tp)})
         eq_axes = self.tp.findSimilarAx(self.ptrn)
         saveTp = copy.deepcopy(self.tp)
         for ax in eq_axes:
             self.tp.foldByAx(ax)
             self.create_node(identifier=parent+ax,
-                             parent=parent, data={"square": self.tp.square, 
-                                                  "ptrn": copy.deepcopy(self.tp)})
+                             parent=parent, data={'square': self.tp.square, 
+                                                  'ptrn': copy.deepcopy(self.tp)})
             self.__super_alg2(parent+ax)
             self.tp = copy.deepcopy(saveTp)
-
-    def replace_quotes(self, list):
-        for i in list:
-            pass
 
 
     def get_best_paths(self, alg_type = 1):
@@ -87,9 +83,9 @@ class DesTree(Tree):
         if len(leaves) == 1:
             return []
         for n in leaves:
-            if n.data["square"] < best_square:
-                best_square = n.data["square"]
+            if n.data['square'] < best_square:
+                best_square = n.data['square']
         for n in leaves:
-            if n.data["square"] == best_square:
-                result.append(n.identifier.replace("root", ""))
+            if n.data['square'] == best_square:
+                result.append(n.identifier.replace('root', ''))
         return result

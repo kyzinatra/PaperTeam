@@ -288,3 +288,16 @@ class TargetPattern(Pattern):
 
     def prnt(self):
         super().prnt()
+
+    def __eq__(self, rp):
+        result = True
+        if self.padding != rp.padding:
+            return False
+        if self.horiz != rp.horiz or self.vert != rp.vert:
+            return False
+        # if self.links != rp.links:
+        #     return False
+        if self.valid_axis_horiz != rp.valid_axis_horiz or \
+            self.valid_axis_vert != rp.valid_axis_vert:
+            return False
+        return True
