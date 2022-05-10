@@ -9,7 +9,7 @@ import { useSelector } from "../../service/redux/store";
 import Load from "../Load/Load";
 
 const App: FC = () => {
-  const isLoading = useSelector(a => a.construcor.isLoading);
+  const isLoading = useSelector(a => a.solution.isLoading);
   return (
     <BrowserRouter>
       <Header />

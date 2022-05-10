@@ -6,12 +6,12 @@ import Board from "../Board/Board";
 import Console from "../Console/Console";
 import Button from "../Links/Button/Button";
 import style from "./Constructor.sass";
-import { checkSolution, loadFile } from "../../service/slices/construcorSlice";
 import { DEFAULT_FILE } from "../../service/API";
+import { checkSolution, loadFile } from "../../service/slices/solutionSlice";
 
 const Constructor = () => {
   const dispatch = useAppDispatch();
-  const { isError } = useSelector(b => b.construcor);
+  const { isError } = useSelector(b => b.solution);
   const [answer, setAnswer] = useState("");
   useEffect(() => {
     dispatch(loadFile({ path: DEFAULT_FILE, init: true }));
@@ -34,7 +34,7 @@ const Constructor = () => {
       </div>
       <nav className={style.constructor__nav}>
         <Button onClick={e => dispatch(checkSolution(answer))}>Проверить решение</Button>
-        <Button>Создать задачу</Button>
+        <Button>Получить задачу</Button>
         <Button>Расчитать оптимальное решение</Button>
       </nav>
       <Console />

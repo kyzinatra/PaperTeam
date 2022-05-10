@@ -14,7 +14,7 @@ const ConsoleLine: FC<IConsoleLine> = ({ prefix, children, className }) => {
   else toAdd = prefix ? <span className={style.line__prefix}>{prefix}</span> : "";
 
   return (
-    <div className={style.line}>
+    <div className={style.line} onClick={e => e.stopPropagation()}>
       <span className={className}>
         <span>{toAdd}</span>
         {children}

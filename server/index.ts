@@ -56,7 +56,11 @@ app.get(API_URL + "/getSolution", (req, res) => {
   const Qflag = req.query?.friendly == "true";
   res.contentType("application/json");
   new Promise((resolve, reject) => {
-    const process = spawn("py", ["algorithm/main.py", Qpath, Qflag ? "u" : ""]);
+    const process = spawn("py", [
+      "algorithm/main.py",
+      "-j",
+      `'{"horiz":{"A":"1010101","B":"0011100","C":"0101010"},"vert":{"D":"0011","E":"1111","F":"1100","G":"1100","H":"1111","I":"0011"},"padding":{"top":1,"rigth":0.5,"bottom":1,"left":0.5}}'`,
+    ]);
     process.stdout.on("data", resolve);
     process.stderr.on("data", reject);
   }).then(
@@ -66,27 +70,7 @@ app.get(API_URL + "/getSolution", (req, res) => {
     },
     err => {
       res.status(400);
-      res.send(JSON.stringify({ message: err.toString() }));
-    }
-  );
-});
-
-app.get(API_URL + "/getSolutionByJson", (req, res) => {
-  const Qjson = (req.query?.json || "").toString();
-  const Qflag = req.query?.friendly == "true";
-  res.contentType("application/json");
-
-  new Promise((resolve, reject) => {
-    const process = spawn("py", ["algorithm/main.py", Qjson, Qflag ? "u" : ""]);
-    process.stdout.on("data", resolve);
-    process.stderr.on("data", reject);
-  }).then(
-    result => {
-      res.status(200);
-      res.send(result.toString());
-    },
-    err => {
-      res.status(400);
+      console.log(err.toString());
       res.send(JSON.stringify({ message: err.toString() }));
     }
   );

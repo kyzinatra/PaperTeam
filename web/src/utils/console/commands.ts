@@ -2,14 +2,16 @@ import { uid } from "uid";
 import { useAppDispatch } from "../../service/redux/store";
 import { setAxis } from "../../service/slices/construcorSlice";
 
-export function construcorChange(
-  command: string,
-  dispatch: ReturnType<typeof useAppDispatch>
-): {
+type log = {
   id: string;
   data: [string, string][];
   CreateTime: number;
-} {
+};
+
+export function construcorChange(
+  command: string,
+  dispatch: ReturnType<typeof useAppDispatch>
+): log {
   if (/^set ([A-Z])\s*:\s*([10]+)$/i.test(command)) {
     const match = command.match(/^set ([A-Z])\s*:\s*([10]+)$/i) as string[];
     dispatch(
@@ -34,6 +36,21 @@ export function construcorChange(
     data: [
       ["red", "Constructor Set Error: "],
       ["", "wrong input"],
+    ],
+    CreateTime: Date.now(),
+  };
+}
+
+export function JSONLog(
+  command: string,
+  dispatch: ReturnType<typeof useAppDispatch>,
+  info: string
+): log {
+  return {
+    id: uid(),
+    data: [
+      ["green", "JSON: "],
+      ["", info],
     ],
     CreateTime: Date.now(),
   };

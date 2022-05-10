@@ -21,6 +21,8 @@ const Console: FC = () => {
   const [historyBack, setHistory] = useState<number>(0);
 
   const history = useSelector(s => s.history);
+  const { padding, horiz, vert } = useSelector(s => s.construcor);
+  const json = JSON.stringify({ horiz, vert, padding });
 
   useEffect(() => {
     if (historyBack > 0 && historyBack <= history.length) {
@@ -38,7 +40,7 @@ const Console: FC = () => {
   function subbmitCommand(e: KeyboardEvent) {
     if (isFocus && e.key == "Enter") {
       if (input == "") return;
-      ConsoleController.run(dispatch, input);
+      ConsoleController.run(dispatch, input, json);
       setInput("");
       setHistory(0);
       return;
@@ -55,7 +57,6 @@ const Console: FC = () => {
     <div
       className={style.console}
       onClick={focusHandler}
-      tabIndex={1}
       onBlur={blurHander}
       onFocus={focusHandler}
       onKeyDown={subbmitCommand}
