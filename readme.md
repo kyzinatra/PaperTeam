@@ -26,22 +26,23 @@ To run the project:
 2. Run in console:
    (Open one more console in directory \PaperTeam and type if need):
 
-```sh
+```
 git clone https://github.com/kyzinatra/PaperTeam.git
 ```
 
-```sh
+```
 cd web/
 npm install
 npm run dev
 ```
 
-```sh
+```
 cd web/
 npm run build
 ```
 
-```sh
+```
+npm install
 npm run listen
 ```
 
@@ -49,14 +50,18 @@ Open localhost:9000
 
 Console API:
 
-```sh
-set \$AXIS\$ : 10..101 // Sets the \$AXIS\$ axis according to the pattern
+```js
+set $AXIS$ : 10..101 // Sets the $AXIS$ axis according to the pattern
 ```
 
-```sh
-clear // Clear console
+```js
+set (width|height) : int // Sets the height or width (width + height <= 28)
 ```
 
-```sh
+```js
+clear; // Clear console
+```
+
+```js
 json get // get json from the constructor
 ```
