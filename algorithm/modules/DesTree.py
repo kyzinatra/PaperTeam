@@ -1,6 +1,4 @@
 import copy
-from operator import sub
-from sqlalchemy import null
 from treelib import Tree, Node
 from math import inf
 
@@ -80,8 +78,6 @@ class DesTree(Tree):
         leaves = self.leaves()
         result = []
         best_square = inf
-        if len(leaves) == 1:
-            return []
         for n in leaves:
             if n.data['square'] < best_square:
                 best_square = n.data['square']
