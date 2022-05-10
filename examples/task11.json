@@ -1,0 +1,17 @@
+{
+    "horiz": {
+        "A": "001",
+        "B": "101"
+    },
+    "vert": {
+        "C": "000",
+        "D": "111"
+    },
+    "padding": {
+        "top": 1,
+        "rigth": 1,
+        "bottom": 1,
+        "left": 1
+    },
+    "difficulty": 1
+}
