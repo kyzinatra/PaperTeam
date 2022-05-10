@@ -56,7 +56,7 @@ app.get(API_URL + "/getSolution", (req, res) => {
   const Qflag = req.query?.friendly == "true";
   res.contentType("application/json");
   new Promise((resolve, reject) => {
-    const process = spawn("py", [
+    const process = spawn("python", [
       "algorithm/main.py",
       "-j",
       `{"horiz":{"A":"1010101","B":"0011100","C":"0101010"},"vert":{"D":"0011","E":"1111","F"h"1100","G":"1100","H":"1111","I":"0011"},"padding":{"top":1,"rigth":0.5,"bottom":1,"left":0.5}}`,
