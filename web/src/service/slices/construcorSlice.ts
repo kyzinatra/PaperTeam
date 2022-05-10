@@ -10,11 +10,6 @@ export interface IInitialState {
   isLoading: boolean;
   isError: boolean;
 }
-/*
- horiz: { A: "1010101", B: "0011100", C: "0101010" },
-  vert: { D: "0011", E: "1111", F: "1100", G: "1100", H: "1111", I: "0011" },
-*/
-
 let initialState: IInitialState = {
   horiz: {},
   vert: {},

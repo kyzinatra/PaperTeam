@@ -21,12 +21,29 @@ Task comment
 ![Image alt](https://github.com/kyzinatra/PaperTeam/raw/master/assets/test.png)
 
 
-To download dependences:
+To run the project:
 
 1. Download [node.js](https://nodejs.org/en/)
 2. Run in console:
+(Open one more console in directory \PaperTeam and type if need):
+
+```sh
+git clone https://github.com/kyzinatra/PaperTeam.git
+```
+
+```sh
+cd web/
+npm install
+npm run dev
+```
+
+```sh
+cd web/
+npm run build
+```
 
 ```sh 
-npm install
-npm start
+npm run listen
 ```
+
+Open localhost:9000
