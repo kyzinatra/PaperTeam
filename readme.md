@@ -50,18 +50,18 @@ Open localhost:9000
 
 Console API:
 
-```js
+```sh
 set $AXIS$ : 10..101 // Sets the $AXIS$ axis according to the pattern
 ```
 
-```js
+```sh
 set (width|height) : int // Sets the height or width (width + height <= 28)
 ```
 
-```js
-clear; // Clear console
+```sh
+clear // Clear console
 ```
 
-```js
+```sh
 json get // get json from the constructor
 ```
