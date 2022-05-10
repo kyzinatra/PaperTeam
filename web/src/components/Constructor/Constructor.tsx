@@ -12,6 +12,7 @@ import { checkSolution, loadFile } from "../../service/slices/solutionSlice";
 const Constructor = () => {
   const dispatch = useAppDispatch();
   const { isError } = useSelector(b => b.solution);
+  const state = useSelector(b => b.construcor);
   const [answer, setAnswer] = useState("");
   useEffect(() => {
     dispatch(loadFile({ path: DEFAULT_FILE, init: true }));
@@ -33,7 +34,9 @@ const Constructor = () => {
         <input type="text" value={answer} onChange={e => setAnswer(e.target.value)} />
       </div>
       <nav className={style.constructor__nav}>
-        <Button onClick={e => dispatch(checkSolution(answer))}>Проверить решение</Button>
+        <Button onClick={e => dispatch(checkSolution([answer, JSON.stringify(state)]))}>
+          Проверить решение
+        </Button>
         <Button>Получить задачу</Button>
         <Button>Расчитать оптимальное решение</Button>
       </nav>

@@ -55,7 +55,7 @@ set $AXIS$ : 10..101 // Sets the $AXIS$ axis according to the pattern
 ```
 
 ```sh
-set (width|height) : int // Sets the height or width (width + height <= 28)
+set (width|height) int // Sets the height or width (width + height <= 28)
 ```
 
 ```sh
