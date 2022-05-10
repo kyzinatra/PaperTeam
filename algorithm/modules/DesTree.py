@@ -1,5 +1,5 @@
 import copy
-from treelib import Tree, Node
+from modules.treelib import Tree, Node
 from math import inf
 
 from modules.Patterns import Pattern, TargetPattern
