@@ -54,6 +54,7 @@ const checkSolution = createAsyncThunk(
   "solution/checkSolution",
   async (check: string[], thunkAPI) => {
     const result = await (await axios.get(API_URL + "/getSolution/?path=" + DEFAULT_FILE)).data;
+    console.log(result);
     if (result.includes(check))
       ConsoleController.log(thunkAPI.dispatch as AppDispatch, checkSuccess, "🎉");
     else ConsoleController.log(thunkAPI.dispatch as AppDispatch, chackFail, "😥");
