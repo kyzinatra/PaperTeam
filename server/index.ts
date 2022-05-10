@@ -7,7 +7,7 @@ const API_URL = "/api/v1.0.1";
 
 const app = express();
 const cors = require("cors");
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 // ! CROS
 const whitelist = ["http://localhost:3000", "http://localhost:9000"];
 const corsOptions = {
@@ -59,7 +59,7 @@ app.get(API_URL + "/getSolution", (req, res) => {
     const process = spawn("py", [
       "algorithm/main.py",
       "-j",
-      `{"horiz":{"A":"1010101","B":"0011100","C":"0101010"},"vert":{"D":"0011","E":"1111","F":"1100","G":"1100","H":"1111","I":"0011"},"padding":{"top":1,"rigth":0.5,"bottom":1,"left":0.5}}`,
+      `{"horiz":{"A":"1010101","B":"0011100","C":"0101010"},"vert":{"D":"0011","E":"1111","F"h"1100","G":"1100","H":"1111","I":"0011"},"padding":{"top":1,"rigth":0.5,"bottom":1,"left":0.5}}`,
     ]);
     process.stdout.on("data", resolve);
     process.stderr.on("data", reject);
@@ -89,6 +89,6 @@ app.get(API_URL + "/getJSON", (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}\n http://localhost:${port}/`);
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}\n http://localhost:${PORT}/`);
 });
