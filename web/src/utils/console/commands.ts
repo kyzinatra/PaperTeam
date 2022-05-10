@@ -6,6 +6,7 @@ type log = {
   id: string;
   data: [string, string][];
   CreateTime: number;
+  prefix?: string;
 };
 
 export function construcorChange(
@@ -27,6 +28,7 @@ export function construcorChange(
         ["green", "successfuly "],
         ["", `changed (${match[2]})`],
       ],
+      prefix: "🧙",
       CreateTime: Date.now(),
     };
   }
@@ -37,6 +39,7 @@ export function construcorChange(
       id: uid(),
       data: [["blue", "Constructor request is sent"]],
       CreateTime: Date.now(),
+      prefix: "📨",
     };
   }
   return {
@@ -45,6 +48,7 @@ export function construcorChange(
       ["red", "Constructor Set Error: "],
       ["", "wrong input"],
     ],
+    prefix: "🤔",
     CreateTime: Date.now(),
   };
 }
@@ -60,6 +64,7 @@ export function JSONLog(
       ["green", "JSON: "],
       ["", info],
     ],
+    prefix: "🙌",
     CreateTime: Date.now(),
   };
 }

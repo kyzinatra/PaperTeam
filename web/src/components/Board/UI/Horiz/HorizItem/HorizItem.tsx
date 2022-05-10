@@ -17,7 +17,6 @@ const HorizItem: FC<HorizItem> = ({ isDashed, axis, index }) => {
       className={style["horiz__wrapper"]}
       onClick={e => {
         e.stopPropagation();
-        console.log("CLICK");
         dispatch(
           setAxis({
             axisName: axis,

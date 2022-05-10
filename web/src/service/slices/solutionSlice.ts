@@ -6,26 +6,18 @@ import { AppDispatch } from "../redux/store";
 import { set } from "./construcorSlice";
 
 export interface IInitialState {
-  horiz: { [key: string]: string };
-  vert: { [key: string]: string };
-  padding?: { top: number; right: number; bottom: number; left: number };
+  solution: string[];
   isLoading: boolean;
   isError: boolean;
 }
 let initialState: IInitialState = {
-  horiz: {},
-  vert: {},
+  solution: [],
   isLoading: false,
   isError: false,
 };
 
-export interface ISetAxisConstructor {
-  axisName: string;
-  value: string;
-}
-
 const logLoadInit = [
-  ["blue", "@@INIT"],
+  ["blue", "INIT"],
   ["", " default case"],
 ] as [string, string][];
 const loadlog = [
@@ -37,9 +29,8 @@ const loadFile = createAsyncThunk(
   "solution/load",
   async ({ path, init }: { path: string; init?: boolean }, thunkAPI) => {
     const result = await (await axios.get(API_URL + "/getJSON/?path=" + path)).data;
-    ConsoleController.log(thunkAPI.dispatch as AppDispatch, init ? logLoadInit : loadlog, true);
+    ConsoleController.log(thunkAPI.dispatch as AppDispatch, init ? logLoadInit : loadlog, "😋");
     thunkAPI.dispatch(set(result));
-    return {};
   }
 );
 
@@ -53,28 +44,42 @@ const chackFail = [["", "Your answer isn't correct, try again"]] as [string, str
 const checkSolution = createAsyncThunk(
   "solution/checkSolution",
   async (check: string[], thunkAPI) => {
-    const result = await (await axios.get(API_URL + "/getSolution/?path=" + DEFAULT_FILE)).data;
-    console.log(result);
-    if (result.includes(check))
+    const result = await (await axios.get(API_URL + "/getSolution/?json=" + check[1])).data;
+    if (result.includes(check[0]))
       ConsoleController.log(thunkAPI.dispatch as AppDispatch, checkSuccess, "🎉");
     else ConsoleController.log(thunkAPI.dispatch as AppDispatch, chackFail, "😥");
   }
 );
 
 const getSolution = createAsyncThunk("solution/getSolution", async (check: string, thunkAPI) => {
-  const resultStr = await (await axios.get(API_URL + "/getSolution/?path=" + DEFAULT_FILE)).data;
-  const result: string[] = JSON.parse(resultStr.replace(/'/g, '"'));
-  return result;
+  const result = await (await axios.get(API_URL + "/getSolution/?json=" + check)).data;
+  if (result[0] == "") {
+    ConsoleController.log(
+      thunkAPI.dispatch as AppDispatch,
+      [
+        ["", "There is no "],
+        ["blue", "optimal"],
+        ["", " solution"],
+      ],
+      "😣"
+    );
+    return { solution: [] };
+  }
+  return { solution: result };
 });
 
 export const solutionSlice = createSlice({
   name: "solution",
   initialState,
-  reducers: {},
+  reducers: {
+    shift: state => {
+      state.solution.shift();
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(loadFile.fulfilled, (state, action) => {
-        return { ...state, ...action.payload, isLoading: false, isError: false };
+        return { ...state, isLoading: false, isError: false };
       })
       .addCase(loadFile.pending, state => {
         return { ...state, isLoading: true, isError: false };
@@ -102,6 +107,6 @@ export const solutionSlice = createSlice({
       });
   },
 });
-
-export { loadFile, checkSolution };
+const shift = solutionSlice.actions.shift;
+export { loadFile, checkSolution, getSolution, shift };
 export default solutionSlice.reducer;

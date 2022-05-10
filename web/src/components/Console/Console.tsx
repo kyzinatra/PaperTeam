@@ -12,6 +12,7 @@ import ConsoleLine from "./ConsoleLine/ConsoleLine";
 import { useSelector, useAppDispatch } from "../../service/redux/store";
 import ConsoleController from "../../utils/console/console";
 import css from "../../sass/global.sass";
+import { shift } from "../../service/slices/solutionSlice";
 
 const Console: FC = () => {
   const log = useSelector(store => store.console);
@@ -23,7 +24,7 @@ const Console: FC = () => {
   const history = useSelector(s => s.history);
   const { padding, horiz, vert } = useSelector(s => s.construcor);
   const json = JSON.stringify({ horiz, vert, padding });
-
+  const solution = useSelector(s => s.solution.solution);
   useEffect(() => {
     if (historyBack > 0 && historyBack <= history.length) {
       setInput(history[historyBack - 1]);
@@ -53,12 +54,16 @@ const Console: FC = () => {
     }
   }
 
+  function nextClick(e: MouseEvent) {
+    e.stopPropagation();
+    dispatch(shift());
+  }
+
   return (
     <div
       className={style.console}
       onClick={focusHandler}
       onBlur={blurHander}
-      onFocus={focusHandler}
       onKeyDown={subbmitCommand}
     >
       {log.map(a => {
@@ -74,8 +79,18 @@ const Console: FC = () => {
           </ConsoleLine>
         );
       })}
+      {!!solution.length && (
+        <ConsoleLine prefix={"📒"} className={style["console__input-wrapper"]}>
+          <span>
+            <span>{solution[0]}</span>
+            <button className={style.console__next} onClick={nextClick}>
+              ⏩
+            </button>
+          </span>
+        </ConsoleLine>
+      )}
       {isFocus && (
-        <ConsoleLine prefix={"$"} className={style["console__input-wrapper"]}>
+        <ConsoleLine prefix={"👉"} className={style["console__input-wrapper"]}>
           <input
             type="text"
             onChange={e => setInput(e.target.value)}

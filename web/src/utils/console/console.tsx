@@ -40,6 +40,7 @@ export default class ConsoleController {
         id: uid(),
         data: [["", `bash: ${command.split(" ")[0]}: command not found`]],
         CreateTime: Date.now(),
+        prefix: "🙈",
       })
     );
   }
