@@ -8,10 +8,11 @@ import Button from "../Links/Button/Button";
 import style from "./Constructor.sass";
 import { DEFAULT_FILE } from "../../service/API";
 import { checkSolution, loadFile, getSolution } from "../../service/slices/solutionSlice";
+import { setTask } from "../../service/slices/construcorSlice";
 
 const Constructor = () => {
   const dispatch = useAppDispatch();
-  const { isError } = useSelector(b => b.solution);
+  const isError = useSelector(b => b.solution.isError || b.construcor.isError);
   const state = useSelector(b => b.construcor);
   const [answer, setAnswer] = useState("");
   useEffect(() => {
@@ -41,13 +42,15 @@ const Constructor = () => {
         <Button onClick={e => dispatch(checkSolution([answer, JSON.stringify(state)]))}>
           Проверить решение
         </Button>
-        <Button>Получить задачу</Button>
+        <Button onClick={e => dispatch(setTask(state.difficulty || 1))}>Получить задачу</Button>
         <Button onClick={e => dispatch(getSolution(JSON.stringify(state)))}>
           Расчитать оптимальное решение
         </Button>
       </nav>
       <Console />
-      <Button onClick={() => dispatch(clear())}>Clear</Button>
+      <Button className={style.constructor__clear} onClick={() => dispatch(clear())}>
+        Clear
+      </Button>
     </div>
   );
 };

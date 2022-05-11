@@ -14,6 +14,14 @@ $tabHeight: 45px
   border-radius: 0px 0px 10px 10px
   background-color: $default-color 
   cursor: pointer
+  @media screen and (max-width: 900px) 
+    width: auto
+    min-width: auto
+    justify-content: stretch
+    width: 100%
+    margin-left: 5px
+  @media screen and (max-width: 450px)
+    font-size: 1.1rem 
   &:hover, &:focus
     height: 65px
   &_active
@@ -22,3 +30,6 @@ $tabHeight: 45px
     height: $tabHeight
     display: flex
     align-items: center
+    @media screen and (max-width: 900px) 
+      width: 100%
+      justify-content: center

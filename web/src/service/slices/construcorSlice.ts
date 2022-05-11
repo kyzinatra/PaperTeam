@@ -1,15 +1,22 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { API_URL } from "../API";
 
 export interface IInitialState {
   horiz: { [key: string]: string };
   vert: { [key: string]: string };
   padding?: { top: number; right: number; bottom: number; left: number };
+  difficulty?: 1 | 2 | 3;
   isOverflow: boolean;
+  isError: boolean;
+  isLoading: boolean;
 }
 let initialState: IInitialState = {
   horiz: {},
   vert: {},
   isOverflow: false,
+  isError: false,
+  isLoading: false,
 };
 
 export interface ISetAxisConstructor {
@@ -17,12 +24,20 @@ export interface ISetAxisConstructor {
   value: string;
 }
 
+const setTask = createAsyncThunk("constructor/setTask", async (difficulty: 1 | 2 | 3, thunkAPI) => {
+  const result = await (await axios.get(API_URL + "/getTask/?difficulty=" + difficulty)).data;
+  return result;
+});
+
 export const constructorSlice = createSlice({
   name: "constructor",
   initialState,
   reducers: {
     set: (state, action: PayloadAction<IInitialState>) => {
       return { ...state, ...action.payload };
+    },
+    setDifficulty: (state, action: PayloadAction<1 | 2 | 3>) => {
+      return { ...state, difficulty: action.payload };
     },
     setAxis: (state, action: PayloadAction<ISetAxisConstructor>) => {
       const { axisName, value } = action.payload;
@@ -61,8 +76,27 @@ export const constructorSlice = createSlice({
     },
     clear: state => initialState,
   },
+  extraReducers: builder => {
+    builder
+      .addCase(setTask.fulfilled, (state, { payload }) => ({
+        ...state,
+        ...payload,
+        isError: false,
+        isLoading: false,
+      }))
+      .addCase(setTask.rejected, (state, { payload }) => ({
+        ...state,
+        isError: true,
+        isLoading: false,
+      }))
+      .addCase(setTask.pending, (state, { payload }) => ({
+        ...state,
+        isError: false,
+        isLoading: true,
+      }));
+  },
 });
 
-const { set, clear, setAxis, setSize, clearOverflow } = constructorSlice.actions;
-export { set, clear, setAxis, setSize, clearOverflow };
+const { set, clear, setAxis, setSize, clearOverflow, setDifficulty } = constructorSlice.actions;
+export { set, clear, setAxis, setSize, clearOverflow, setTask, setDifficulty };
 export default constructorSlice.reducer;

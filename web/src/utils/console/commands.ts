@@ -1,6 +1,6 @@
 import { uid } from "uid";
 import { useAppDispatch } from "../../service/redux/store";
-import { setAxis, setSize } from "../../service/slices/construcorSlice";
+import { setAxis, setDifficulty, setSize } from "../../service/slices/construcorSlice";
 
 type log = {
   id: string;
@@ -65,6 +65,34 @@ export function JSONLog(
       ["", info],
     ],
     prefix: "🙌",
+    CreateTime: Date.now(),
+  };
+}
+
+export function difficultyChange(
+  command: string,
+  dispatch: ReturnType<typeof useAppDispatch>
+): log {
+  if (/^difficulty\s*[123]\s*$/.test(command)) {
+    const difficulty = (command.match(/^difficulty\s*([123])\s*$/) as string[])[1];
+    dispatch(setDifficulty(+difficulty as 1 | 2 | 3));
+    return {
+      id: uid(),
+      data: [
+        ["", "Your difficuilty level have set"],
+        ["green", " successfully "],
+      ],
+      prefix: "🎊",
+      CreateTime: Date.now(),
+    };
+  }
+  return {
+    id: uid(),
+    data: [
+      ["red", "Constructor difficulty Error: "],
+      ["", "wrong input"],
+    ],
+    prefix: "🤔",
     CreateTime: Date.now(),
   };
 }

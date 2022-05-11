@@ -34,20 +34,31 @@ const loadFile = createAsyncThunk(
   }
 );
 
-const checkSuccess = [
-  ["", "Your answer is absolutely "],
-  ["green", "correct!"],
-] as [string, string][];
-
-const chackFail = [["", "Your answer isn't correct, try again"]] as [string, string][];
-
 const checkSolution = createAsyncThunk(
   "solution/checkSolution",
   async (check: string[], thunkAPI) => {
     const result = await (await axios.get(API_URL + "/getSolution/?json=" + check[1])).data;
     if (result.includes(check[0]))
-      ConsoleController.log(thunkAPI.dispatch as AppDispatch, checkSuccess, "🎉");
-    else ConsoleController.log(thunkAPI.dispatch as AppDispatch, chackFail, "😥");
+      ConsoleController.log(
+        thunkAPI.dispatch as AppDispatch,
+        [
+          ["", `Your answer `],
+          ["blue", check[0]],
+          ["", ` is absolutely `],
+          ["green", "correct!"],
+        ],
+        "🎉"
+      );
+    else
+      ConsoleController.log(
+        thunkAPI.dispatch as AppDispatch,
+        [
+          ["", `Your answer `],
+          ["blue", check[0]],
+          ["", ` isn't correct, try again`],
+        ],
+        "😥"
+      );
   }
 );
 
