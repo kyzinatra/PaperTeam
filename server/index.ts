@@ -1,8 +1,9 @@
 import express from "express";
-import { readFileSync } from "fs";
+import { readFileSync, readdir } from "fs";
 import path from "path";
 import { spawn } from "child_process";
-
+import { start } from "./pinger";
+start();
 const API_URL = "/api/v1.0.1";
 
 const app = express();
@@ -16,6 +17,11 @@ const corsOptions = {
   },
 };
 app.use(cors(corsOptions));
+
+function randEl<T>(arr: T[]): T {
+  const el = ~~(arr.length * Math.random());
+  return arr[el];
+}
 
 function getMain(req: express.Request, res: express.Response) {
   res.contentType("text/html");
@@ -75,6 +81,32 @@ app.get(API_URL + "/getJSON", (req, res) => {
     const file = readFileSync(path.resolve(__dirname, "../", Qjson));
     res.status(200);
     res.send(file);
+  } catch (e) {
+    res.status(500);
+    res.send(JSON.stringify({ message: e.toString() }));
+  }
+});
+
+app.get(API_URL + "/getTask", (req, res) => {
+  const QDificulty = +(req.query?.difficulty || "").toString();
+  res.contentType("application/json");
+  try {
+    readdir(
+      path.resolve(__dirname, `../examples/difficulty_${QDificulty}`),
+      (err, items: string[]) => {
+        const fileName = randEl(items || []);
+        if (!fileName) {
+          res.status(400);
+          res.send("No files in folder");
+          return;
+        }
+        const file = readFileSync(
+          path.resolve(__dirname, `../examples/difficulty_${QDificulty}/`, fileName)
+        );
+        res.status(200);
+        res.send(file);
+      }
+    );
   } catch (e) {
     res.status(500);
     res.send(JSON.stringify({ message: e.toString() }));
