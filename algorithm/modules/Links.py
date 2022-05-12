@@ -70,7 +70,7 @@ class Links:
                 for l in l_list:
                     l.markAsFold()
 
-    def getLinkedAxis(self, seg):
+    def getLinkedAxisBySeg(self, seg):
         res = []
         for l in self.__links:
             if seg in l:
@@ -78,6 +78,17 @@ class Links:
                     if ss.axis not in res:
                         res.append(ss.axis)
                 break
+        return res
+
+    def getLinkedAxisByAx(self, ax):
+        res = [ax]
+        for lst in self.__links:
+            for seg in lst:
+                if seg.axis == ax:
+                    for s in lst:
+                        if not s.axis in res:
+                            res.append(s.axis)
+                    break
         return res
 
     def prnt(self):
