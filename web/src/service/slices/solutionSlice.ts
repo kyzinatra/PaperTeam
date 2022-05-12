@@ -86,6 +86,7 @@ export const solutionSlice = createSlice({
     shift: state => {
       state.solution.shift();
     },
+    clear: stat => initialState,
   },
   extraReducers: builder => {
     builder
@@ -118,6 +119,6 @@ export const solutionSlice = createSlice({
       });
   },
 });
-const shift = solutionSlice.actions.shift;
-export { loadFile, checkSolution, getSolution, shift };
+const { shift, clear } = solutionSlice.actions;
+export { loadFile, checkSolution, getSolution, shift, clear };
 export default solutionSlice.reducer;

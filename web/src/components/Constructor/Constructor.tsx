@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { clear } from "../../service/slices/consoleSlice";
+import { clear as clearsol } from "../../service/slices/solutionSlice";
 import { useAppDispatch, useSelector } from "../../service/redux/store";
 import ConsoleController from "../../utils/console/console";
 import Board from "../Board/Board";
@@ -48,7 +49,13 @@ const Constructor = () => {
         </Button>
       </nav>
       <Console />
-      <Button className={style.constructor__clear} onClick={() => dispatch(clear())}>
+      <Button
+        className={style.constructor__clear}
+        onClick={() => {
+          dispatch(clear());
+          dispatch(clearsol());
+        }}
+      >
         Clear
       </Button>
     </div>

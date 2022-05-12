@@ -1,4 +1,5 @@
 import { add, clear } from "../../service/slices/consoleSlice";
+import { clear as clearsol } from "../../service/slices/solutionSlice";
 import { add as historyAdd } from "../../service/slices/historySlice";
 import { AppDispatch, useAppDispatch } from "../../service/redux/store";
 import { uid } from "uid";
@@ -34,7 +35,11 @@ export default class ConsoleController {
     if (/^set/i.test(command)) return dispatch(add(construcorChange(command, dispatch)));
     if (/^difficulty/i.test(command)) return dispatch(add(difficultyChange(command, dispatch)));
     if (/^json get$/i.test(command)) return dispatch(add(JSONLog(command, dispatch, info)));
-    if (/^clear$/i.test(command)) return dispatch(clear());
+    if (/^clear$/i.test(command)) {
+      dispatch(clear());
+      dispatch(clearsol());
+      return;
+    }
 
     dispatch(
       add({
@@ -47,5 +52,6 @@ export default class ConsoleController {
   }
   static clear(dispatch: Dispatch) {
     dispatch(clear());
+    dispatch(clearsol());
   }
 }
