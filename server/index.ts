@@ -5,7 +5,6 @@ import { spawn } from "child_process";
 import { start } from "./pinger";
 start();
 const API_URL = "/api/v1.0.1";
-
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 3000;

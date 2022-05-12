@@ -67,11 +67,11 @@ export const constructorSlice = createSlice({
       state.vert = {};
       state.horiz = {};
       const LETTER_A_CODE = 65;
-      for (let i = LETTER_A_CODE; i < LETTER_A_CODE + width; i++) {
-        state.vert = { ...state.vert, [String.fromCharCode(i)]: "1".repeat(height + 1) };
-      }
-      for (let i = LETTER_A_CODE + width; i < LETTER_A_CODE + width + height; i++) {
+      for (let i = LETTER_A_CODE; i < LETTER_A_CODE + height; i++) {
         state.horiz = { ...state.horiz, [String.fromCharCode(i)]: "1".repeat(width + 1) };
+      }
+      for (let i = LETTER_A_CODE + height; i < LETTER_A_CODE + width + height; i++) {
+        state.vert = { ...state.vert, [String.fromCharCode(i)]: "1".repeat(height + 1) };
       }
     },
     clear: state => initialState,

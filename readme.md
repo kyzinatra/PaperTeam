@@ -65,3 +65,7 @@ clear // Clear console
 ```sh
 json get // get json from the constructor
 ```
+
+```sh
+difficulty (1|2|3) // set difficulty
+```

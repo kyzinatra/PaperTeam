@@ -7,6 +7,7 @@ import Constructor from "../Constructor/Constructor";
 
 import { useSelector } from "../../service/redux/store";
 import Load from "../Load/Load";
+import Contact from "../Contact/Contact";
 
 const App: FC = () => {
   const isLoading = useSelector(a => a.solution.isLoading || a.construcor.isLoading);
@@ -17,6 +18,7 @@ const App: FC = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/constructor" element={<Constructor />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Load isLoading={isLoading} />
     </BrowserRouter>
