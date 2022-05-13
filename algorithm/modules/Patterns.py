@@ -293,14 +293,14 @@ class TargetPattern(Pattern):
         for h in self.horiz:
             if self.horiz[h][0].isFold:
                 continue
-            linked = self.links.getLinkedAxisByAx(v)
+            linked = self.links.getLinkedAxisByAx(h)
             isLinkedEquival = True
             for l in linked:
                 if not (self.getAx(l) == pt.getAx(l) or pt.getAx(l) == self.getInvertedAx(self.getAx(l))):
                     isLinkedEquival = False
                     break
-            if isLinkedEquival and (self.getAx(v) == pt.getAx(v) or pt.getAx(v) == self.getInvertedAx(self.getAx(v))):
-                result.append(v)
+            if isLinkedEquival and (self.getAx(h) == pt.getAx(h) or pt.getAx(h) == self.getInvertedAx(self.getAx(h))):
+                result.append(h)
         return result
 
 
