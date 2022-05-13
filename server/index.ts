@@ -8,8 +8,6 @@ const API_URL = "/api/v1.0.1";
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 3000;
-// ! CROS
-const whitelist = ["http://localhost:3000", "http://localhost:9000"];
 const corsOptions = {
   origin: function (origin, callback) {
     callback(null, true);
