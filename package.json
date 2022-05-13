@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "python --version && ts-node server/index.ts",
+    "start": "ts-node server/index.ts",
     "listen": "nodemon server/index.ts"
   },
   "repository": {
