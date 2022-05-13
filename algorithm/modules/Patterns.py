@@ -50,7 +50,11 @@ class Pattern:
     def prnt(self):
         print('horiz:', self.horiz, '\nVert: ',
               self.vert, '\npaddings: ', self.padding)
-
+    
+    def getAx(self, ax):
+        if ax in self.vert:
+            return self.vert[ax]
+        return self.horiz[ax]
 
 class TargetPattern(Pattern):
     def __init__(self, h_size, v_size):
@@ -149,7 +153,7 @@ class TargetPattern(Pattern):
         elif ax in self.horiz:
             ax = self.horiz[ax]
         for seg in ax:
-            res = list(set(res) | set(self.links.getLinkedAxis(seg)))
+            res = list(set(res) | set(self.links.getLinkedAxisBySeg(seg)))
         return res
 
     def foldByAx(self, ax):
@@ -272,19 +276,33 @@ class TargetPattern(Pattern):
             result.append(Segment(not s.state, s.axis, s.pos))
         return result
 
+
     def findSimilarAx(self, pt):
         result = []
         for v in self.vert:
             if self.vert[v][0].isFold:
                 continue
-            if self.vert[v] == pt.vert[v] or pt.vert[v] == self.getInvertedAx(self.vert[v]):
+            linked = self.links.getLinkedAxisByAx(v)
+            isLinkedEquival = True
+            for l in linked:
+                if not (self.getAx(l) == pt.getAx(l) or pt.getAx(l) == self.getInvertedAx(self.getAx(l))):
+                    isLinkedEquival = False
+                    break
+            if isLinkedEquival and (self.getAx(v) == pt.getAx(v) or pt.getAx(v) == self.getInvertedAx(self.getAx(v))):
                 result.append(v)
         for h in self.horiz:
             if self.horiz[h][0].isFold:
                 continue
-            if self.horiz[h] == pt.horiz[h] or pt.horiz[h] == self.getInvertedAx(self.horiz[h]):
-                result.append(h)
+            linked = self.links.getLinkedAxisByAx(v)
+            isLinkedEquival = True
+            for l in linked:
+                if not (self.getAx(l) == pt.getAx(l) or pt.getAx(l) == self.getInvertedAx(self.getAx(l))):
+                    isLinkedEquival = False
+                    break
+            if isLinkedEquival and (self.getAx(v) == pt.getAx(v) or pt.getAx(v) == self.getInvertedAx(self.getAx(v))):
+                result.append(v)
         return result
+
 
     def prnt(self):
         super().prnt()
