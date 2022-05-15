@@ -8,33 +8,24 @@ const Main = () => {
     <div className={style.main}>
       <h1 className={style.main__title}>Главная</h1>
       <div className={style.main__content}>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi aliquid, culpa unde optio
-          ipsa delectus dignissimos porro et praesentium? Quod excepturi ea, sequi laudantium
-          assumenda reprehenderit, quas ipsa vel quidem quae consequatur. Atque odio corrupti ea
-          veritatis libero ut aperiam ullam nostrum ratione? Ipsam aspernatur adipisci voluptatibus
-          id blanditiis veritatis deserunt. Quae voluptatibus beatae saepe, quaerat obcaecati
-          dolores quas magni quibusdam, perferendis deleniti architecto blanditiis temporibus? Atque
-          recusandae sit blanditiis.
-        </p>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi aliquid, culpa unde optio
-          ipsa delectus dignissimos porro et praesentium? Quod excepturi ea, sequi laudantium
-          assumenda reprehenderit, quas ipsa vel quidem quae consequatur. Atque odio corrupti ea
-          veritatis libero ut aperiam ullam nostrum ratione? Ipsam aspernatur adipisci voluptatibus
-          id blanditiis veritatis deserunt. Quae voluptatibus beatae saepe, quaerat obcaecati
-          dolores quas magni quibusdam, perferendis deleniti architecto blanditiis temporibus? Atque
-          recusandae sit blanditiis.
-        </p>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi aliquid, culpa unde optio
-          ipsa delectus dignissimos porro et praesentium? Quod excepturi ea, sequi laudantium
-          assumenda reprehenderit, quas ipsa vel quidem quae consequatur. Atque odio corrupti ea
-          veritatis libero ut aperiam ullam nostrum ratione? Ipsam aspernatur adipisci voluptatibus
-          id blanditiis veritatis deserunt. Quae voluptatibus beatae saepe, quaerat obcaecati
-          dolores quas magni quibusdam, perferendis deleniti architecto blanditiis temporibus? Atque
-          recusandae sit blanditiis.
-        </p>
+       <pre>
+         {`
+difficulty (1|2|3) // set difficulty
+
+set $AXIS_NAME$ : 10..101 // Sets the $AXIS_NAME$ axis according to the pattern
+
+set (width|height) int // Sets the height or width (width + height <= 26)
+
+clear // Clear console
+
+json get // get json from the constructor
+
+Examples:
+set A : 11011
+set width 13
+difficulty 2
+         `}
+       </pre>
       </div>
       <div className={style.main__link}>
         <LinkBtn to="/constructor">Перейти в конструктор</LinkBtn>
