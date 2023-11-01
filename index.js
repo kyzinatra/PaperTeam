@@ -32,13 +32,6 @@ function getMain(req, res) {
 				encoding: "utf8",
 			}
 		);
-		console.log(__dirname);
-		console.log(
-			(0, fs_1.readdir)(__dirname, function (err, files) {
-				console.log(files);
-			})
-		);
-		console.log(html);
 		res.status(200);
 		return res.send(html);
 	} catch (e) {
