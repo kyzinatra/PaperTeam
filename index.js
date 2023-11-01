@@ -32,6 +32,13 @@ function getMain(req, res) {
 				encoding: "utf8",
 			}
 		);
+		console.log(__dirname);
+		console.log(
+			(0, fs_1.readdir)(__dirname, function (err, files) {
+				console.log(files);
+			})
+		);
+		console.log(html);
 		res.status(200);
 		return res.send(html);
 	} catch (e) {
@@ -57,7 +64,7 @@ app.get(API_URL + "/getSolution", function (req, res) {
 	res.contentType("application/json");
 	new Promise(function (resolve, reject) {
 		var qJson = req.query.json;
-		var process = (0, child_process_1.spawn)("py", ["algorithm/main.py", "-j", qJson]);
+		var process = (0, child_process_1.spawn)("python", ["algorithm/main.py", "-j", qJson]);
 		process.stdout.on("data", resolve);
 		process.stderr.on("data", reject);
 	}).then(
