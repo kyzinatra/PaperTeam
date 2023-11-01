@@ -27,7 +27,7 @@ function getMain(req, res) {
 	res.contentType("text/html");
 	try {
 		var html = (0, fs_1.readFileSync)(
-			path_1.default.resolve(__dirname, "../web/public/index.html"),
+			path_1.default.resolve(__dirname, "./web/public/index.html"),
 			{
 				encoding: "utf8",
 			}
@@ -42,12 +42,9 @@ function getMain(req, res) {
 		res.status(200);
 		return res.send(html);
 	} catch (e) {
-		var error = (0, fs_1.readFileSync)(
-			path_1.default.resolve(__dirname, "../web/public/500.html"),
-			{
-				encoding: "utf8",
-			}
-		);
+		var error = (0, fs_1.readFileSync)(path_1.default.resolve(__dirname, "./web/public/500.html"), {
+			encoding: "utf8",
+		});
 		return res.send(error);
 	}
 }
@@ -87,7 +84,7 @@ app.get(API_URL + "/getJSON", function (req, res) {
 	res.contentType("application/json");
 	try {
 		if (!/.json$/.test(Qjson)) throw Error("INVALID PATH");
-		var file = (0, fs_1.readFileSync)(path_1.default.resolve(__dirname, "../", Qjson));
+		var file = (0, fs_1.readFileSync)(path_1.default.resolve(__dirname, "./", Qjson));
 		res.status(200);
 		res.send(file);
 	} catch (e) {
@@ -103,7 +100,7 @@ app.get(API_URL + "/getTask", function (req, res) {
 	res.contentType("application/json");
 	try {
 		(0,
-		fs_1.readdir)(path_1.default.resolve(__dirname, "../examples/difficulty_".concat(QDificulty)), function (err, items) {
+		fs_1.readdir)(path_1.default.resolve(__dirname, "./examples/difficulty_".concat(QDificulty)), function (err, items) {
 			var fileName = randEl(items || []);
 			if (!fileName) {
 				res.status(400);
@@ -113,7 +110,7 @@ app.get(API_URL + "/getTask", function (req, res) {
 			var file = (0, fs_1.readFileSync)(
 				path_1.default.resolve(
 					__dirname,
-					"../examples/difficulty_".concat(QDificulty, "/"),
+					"./examples/difficulty_".concat(QDificulty, "/"),
 					fileName
 				)
 			);
