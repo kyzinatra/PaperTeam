@@ -24,6 +24,13 @@ function getMain(req: express.Request, res: express.Response) {
 		const html = readFileSync(path.resolve(__dirname, "../web/public/index.html"), {
 			encoding: "utf8",
 		});
+		console.log(__dirname);
+		console.log(
+			readdir(__dirname, (err, files) => {
+				console.log(files);
+			})
+		);
+		console.log(html);
 		res.status(200);
 		return res.send(html);
 	} catch (e) {
