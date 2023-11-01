@@ -4,39 +4,41 @@ import LinkBtn from "../Links/LinkBtn/LinkBtn";
 import style from "./Main.sass";
 
 const Main = () => {
-  return (
-    <div className={style.main}>
-      <h1 className={style.main__title}>Главная</h1>
-      <div className={style.main__content}>
-       <pre>
-         {`
-difficulty (1|2|3) // set difficulty
+	return (
+		<div className={style.main}>
+			<h1 className={style.main__title}>Главная</h1>
+			<div className={style.main__content}>
+				<pre>
+					{`
+Команды для управления игрой: 
 
-set $AXIS_NAME$ : 10..101 // Sets the $AXIS_NAME$ axis according to the pattern
+difficulty (1|2|3) // Установка сложности
 
-set (width|height) int // Sets the height or width (width + height <= 26)
+set $AXIS_NAME$ : 10..101 // Установка $AXIS_NAME$ в соответстии с паттерном 
 
-clear // Clear console
+set (width|height) int // Установка ширины-высоты листка бумаги (width + height <= 26)
 
-json get // get json from the constructor
+clear // Очистка консоли
 
-Examples:
+json get // Получить строковое представление раскладки.
+
+Примеры команд:
 set A : 11011
 set width 13
 difficulty 2
          `}
-       </pre>
-      </div>
-      <div className={style.main__link}>
-        <LinkBtn to="/constructor">Перейти в конструктор</LinkBtn>
-      </div>
-      <div className={style.main__github}>
-        <GithubLink href="https://github.com/kyzinatra/PaperTeam">GitHub</GithubLink>
-        <GithubLink href="https://github.com/kyzinatra">Kyzinatri</GithubLink>
-        <GithubLink href="https://github.com/Nekttuman">Nekttuman</GithubLink>
-      </div>
-    </div>
-  );
+				</pre>
+			</div>
+			<div className={style.main__link}>
+				<LinkBtn to="/constructor">Перейти в конструктор</LinkBtn>
+			</div>
+			<div className={style.main__github}>
+				<GithubLink href="https://github.com/kyzinatra/PaperTeam">GitHub</GithubLink>
+				<GithubLink href="https://github.com/kyzinatra">Kyzinatri</GithubLink>
+				<GithubLink href="https://github.com/Nekttuman">Nekttuman</GithubLink>
+			</div>
+		</div>
+	);
 };
 
 export default Main;
